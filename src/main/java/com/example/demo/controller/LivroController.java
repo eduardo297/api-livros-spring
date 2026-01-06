@@ -44,6 +44,10 @@ public class LivroController {
     ) {
         return livroService.criar(dto);
     }
+    @PostMapping("/importar/{isbn}")
+    public LivroResponseDTO importarPorIsbn(@PathVariable String isbn) {
+        return livroService.importarPorIsbn(isbn);
+    }
 
     // PUT /livros/{id}
     @PutMapping("/{id}")
