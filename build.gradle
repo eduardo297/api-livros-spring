@@ -1,6 +1,7 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '4.0.0'
+    // Atualizado para 3.4.1: Versão estável que suporta Java 21 e Springdoc 2.x sem erros de método
+    id 'org.springframework.boot' version '3.4.1'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -10,7 +11,8 @@ description = 'demo'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
+        // Alinhado com a versão que você configurou no seu sistema e IntelliJ
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -19,19 +21,26 @@ repositories {
 }
 
 dependencies {
+    // Web e Dados
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    // Swagger / OpenAPI (Versão 2.7.0 é a mais estável para Spring Boot 3.4.x)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0'
+
+    // Banco de Dados
     runtimeOnly 'com.mysql:mysql-connector-j'
 
+    // Lombok - Versão fixa para evitar erros de "InInitializerError" no Java 21
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+    // Desenvolvimento e Testes
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
-
 
 tasks.named('test') {
     useJUnitPlatform()

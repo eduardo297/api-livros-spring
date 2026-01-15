@@ -5,7 +5,7 @@ import com.example.demo.DTO.LivroResponseDTO;
 import com.example.demo.service.LivroService;
 import jakarta.validation.Valid;
 
-
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +27,8 @@ public class LivroController {
     @GetMapping
 
     public Page<LivroResponseDTO> listarLivros( @RequestParam(required = false) String titulo,
-                                                @RequestParam(required = false) String autor,Pageable pageable) {
+                                                @RequestParam(required = false) String autor,
+                                                @ParameterObject Pageable pageable) {
         return livroService.listarLivros(titulo, autor, pageable);
     }
 
